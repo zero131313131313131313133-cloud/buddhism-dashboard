@@ -2,12 +2,11 @@ import streamlit as st
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 import re
 from collections import Counter
 from wordcloud import WordCloud
 from bs4 import BeautifulSoup
-
-import matplotlib.font_manager as fm
 
 font_path = "NanumGothic.ttf"
 fm.fontManager.addfont(font_path)
@@ -18,10 +17,8 @@ st.set_page_config(page_title="2030세대 불교 붐 분석", layout="wide")
 st.title("📿 2030세대 불교 붐 데이터 분석")
 st.subheader("불교박람회 · MZ세대 불교 뉴스 분석")
 
-# 사이드바 키워드 입력
 query = st.sidebar.text_input("검색 키워드 입력", value="불교박람회", placeholder="예: 불교, 불교 굿즈")
 
-# 뉴스 수집 함수
 def crawl_news(query):
     url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
     response = requests.get(url)
@@ -34,14 +31,12 @@ def crawl_news(query):
         news_data.append({"title": title, "link": link})
     return pd.DataFrame(news_data)
 
-# 메인 화면에 버튼
 if st.button("🔍 뉴스 데이터 수집"):
     with st.spinner("뉴스 수집 중..."):
         df = crawl_news(query)
         st.session_state["df"] = df
     st.success(f"'{query}' 뉴스 {len(df)}개 수집 완료!")
 
-# 분석
 if "df" in st.session_state:
     df = st.session_state["df"]
 
@@ -70,7 +65,7 @@ if "df" in st.session_state:
         plt.xticks(rotation=45)
         st.pyplot(fig)
 
-      st.subheader("☁️ 워드클라우드")
+        st.subheader("☁️ 워드클라우드")
         try:
             wc = WordCloud(font_path="NanumGothic.ttf", background_color="white", width=1000, height=500)
             cloud = wc.generate_from_frequencies(counter)
