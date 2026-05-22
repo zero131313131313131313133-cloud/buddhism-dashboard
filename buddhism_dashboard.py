@@ -7,7 +7,11 @@ from collections import Counter
 from wordcloud import WordCloud
 from bs4 import BeautifulSoup
 
-plt.rcParams['font.family'] = 'Malgun Gothic'
+import matplotlib.font_manager as fm
+
+font_path = "NanumGothic.ttf"
+fm.fontManager.addfont(font_path)
+plt.rcParams['font.family'] = 'NanumGothic'
 plt.rcParams['axes.unicode_minus'] = False
 
 st.set_page_config(page_title="2030세대 불교 붐 분석", layout="wide")
@@ -68,7 +72,7 @@ if "df" in st.session_state:
 
         st.subheader("☁️ 워드클라우드")
         try:
-            wc = WordCloud(font_path="C:/Windows/Fonts/malgun.ttf", background_color="white", width=1000, height=500)
+           wc = WordCloud(font_path="NanumGothic.ttf", background_color="white", width=1000, height=500)
             cloud = wc.generate_from_frequencies(counter)
             fig2, ax2 = plt.subplots(figsize=(14, 7))
             ax2.imshow(cloud)
