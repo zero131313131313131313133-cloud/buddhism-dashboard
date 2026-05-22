@@ -70,9 +70,9 @@ if "df" in st.session_state:
         plt.xticks(rotation=45)
         st.pyplot(fig)
 
-        st.subheader("☁️ 워드클라우드")
+      st.subheader("☁️ 워드클라우드")
         try:
-           wc = WordCloud(font_path="NanumGothic.ttf", background_color="white", width=1000, height=500)
+            wc = WordCloud(font_path="NanumGothic.ttf", background_color="white", width=1000, height=500)
             cloud = wc.generate_from_frequencies(counter)
             fig2, ax2 = plt.subplots(figsize=(14, 7))
             ax2.imshow(cloud)
